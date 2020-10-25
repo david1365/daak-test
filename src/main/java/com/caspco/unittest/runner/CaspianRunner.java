@@ -67,7 +67,10 @@ public final class CaspianRunner extends BlockJUnit4ClassRunner implements Caspi
         } else {
             CaspianStatement caspianStatement = this.caspianMethodBlock(frameworkMethod);
 
-            mockStatic(frameworkMethod, caspianStatement.getTest(), eachNotifier);
+            Object test = caspianStatement.getTest();
+            if (test != null) {
+                mockStatic(frameworkMethod, test, eachNotifier);
+            }
 
             this.runLeaf(caspianStatement.getStatement(), description, notifier);
 

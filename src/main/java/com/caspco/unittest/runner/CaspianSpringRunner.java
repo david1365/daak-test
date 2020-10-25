@@ -75,7 +75,10 @@ public final class CaspianSpringRunner extends SpringJUnit4ClassRunner implement
             try {
                 CaspianStatement caspianStatement = this.caspianMethodBlock(frameworkMethod);
 
-                mockStatic(frameworkMethod, caspianStatement.getTest(), eachNotifier);
+                Object test = caspianStatement.getTest();
+                if (test != null) {
+                    mockStatic(frameworkMethod, test, eachNotifier);
+                }
 
                 caspianStatement.getStatement().evaluate();
 
